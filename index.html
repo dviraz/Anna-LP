@@ -2,7 +2,10 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <met            <form class="mt-8 space-y-6" action="https://formspree.io/f/mzzgqnzn" method="POST">
+                <input type="hidden" name="_next" value="https://dviraz.github.io/Anna-LP/thank-you.html">
+                <input type="hidden" name="source_id" value="">
+                <input type="hidden" name="rep" value="">me="viewport" content="width=device-width, initial-scale=1.0">
     <title>רכב חדש - קבוצת מאיר</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
     <!-- Chosen Palette: Warm Neutrals -->
@@ -90,6 +93,7 @@
             <form class="mt-8 space-y-6" action="https://formspree.io/f/mzzgqnzn" method="POST">
                 <input type="hidden" name="_next" value="https://dviraz.github.io/Anna-LP/thank-you.html">
                 <input type="hidden" name="source_id" value="">
+                <input type="hidden" name="salesperson" value=""">
 
                 <div class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -165,12 +169,20 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Capture source ID from URL parameters
+            // Capture URL parameters
             const urlParams = new URLSearchParams(window.location.search);
             const sid = urlParams.get('sid');
+            const rep = urlParams.get('rep');
+            
             const sourceInput = document.querySelector('input[name="source_id"]');
+            const repInput = document.querySelector('input[name="rep"]');
+            
             if (sourceInput) {
                 sourceInput.value = sid || 'Direct';
+            }
+            
+            if (repInput) {
+                repInput.value = rep || '';
             }
 
             // Form validation
