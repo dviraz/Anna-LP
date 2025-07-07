@@ -164,14 +164,142 @@
     </div>
 
     <script>
-        // Capture source ID from URL parameters
         document.addEventListener('DOMContentLoaded', function() {
+            // Capture source ID from URL parameters
             const urlParams = new URLSearchParams(window.location.search);
             const sid = urlParams.get('sid');
             const sourceInput = document.querySelector('input[name="source_id"]');
             if (sourceInput) {
                 sourceInput.value = sid || 'Direct';
             }
+
+            // Form validation
+            const form = document.querySelector('form');
+            const firstNameInput = document.getElementById('first-name');
+            const lastNameInput = document.getElementById('last-name');
+            const emailInput = document.getElementById('email-address');
+            const phoneInput = document.getElementById('phone-number');
+            const branchInput = document.getElementById('branch-selection');
+            const submitButton = document.querySelector('button[type="submit"]');
+
+            // Validation functions
+            const validators = {
+                firstName: (value) => value.trim().length >= 2,
+                lastName: (value) => value.trim().length >= 2,
+                email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+                phone: (value) => /^0\d{1,2}-?\d{7,8}$/.test(value.replace(/\s/g, '')),
+                branch: (value) => value !== ''
+            };
+
+            const errorMessages = {
+                firstName: 'יש להזין שם פרטי (לפחות 2 תווים)',
+                lastName: 'יש להזין שם משפחה (לפחות 2 תווים)',
+                email: 'כתובת האימייל אינה תקינה',
+                phone: 'מספר הטלפון אינו תקין (לדוגמה: 052-1234567)',
+                branch: 'יש לבחור סניף מהרשימה'
+            };
+
+            // Show/hide error message
+            function showError(input, message) {
+                let errorDiv = input.parentNode.querySelector('.error-message');
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'error-message text-red-500 text-xs mt-1';
+                    input.parentNode.appendChild(errorDiv);
+                }
+                errorDiv.textContent = message;
+                input.classList.add('border-red-500');
+                input.classList.remove('border-gray-200');
+            }
+
+            function hideError(input) {
+                const errorDiv = input.parentNode.querySelector('.error-message');
+                if (errorDiv) {
+                    errorDiv.textContent = '';
+                }
+                input.classList.remove('border-red-500');
+                input.classList.add('border-gray-200');
+            }
+
+            // Validate individual field
+            function validateField(input, validatorKey) {
+                const value = input.value;
+                const isValid = validators[validatorKey](value);
+                
+                if (input.dataset.touched === 'true') {
+                    if (isValid) {
+                        hideError(input);
+                    } else {
+                        showError(input, errorMessages[validatorKey]);
+                    }
+                }
+                
+                return isValid;
+            }
+
+            // Validate entire form
+            function validateForm() {
+                const isFirstNameValid = validateField(firstNameInput, 'firstName');
+                const isLastNameValid = validateField(lastNameInput, 'lastName');
+                const isEmailValid = validateField(emailInput, 'email');
+                const isPhoneValid = validateField(phoneInput, 'phone');
+                const isBranchValid = validateField(branchInput, 'branch');
+
+                const isFormValid = isFirstNameValid && isLastNameValid && isEmailValid && isPhoneValid && isBranchValid;
+
+                // Enable/disable submit button
+                if (isFormValid) {
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else {
+                    submitButton.disabled = true;
+                    submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+
+                return isFormValid;
+            }
+
+            // Add event listeners
+            [firstNameInput, lastNameInput, emailInput, phoneInput, branchInput].forEach(input => {
+                input.addEventListener('blur', function() {
+                    this.dataset.touched = 'true';
+                    validateForm();
+                });
+
+                input.addEventListener('input', function() {
+                    if (this.dataset.touched === 'true') {
+                        validateForm();
+                    }
+                });
+            });
+
+            // Form submission validation
+            form.addEventListener('submit', function(e) {
+                // Mark all fields as touched
+                [firstNameInput, lastNameInput, emailInput, phoneInput, branchInput].forEach(input => {
+                    input.dataset.touched = 'true';
+                });
+
+                // Validate form
+                if (!validateForm()) {
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Show loading state
+                submitButton.innerHTML = `
+                    <span class="flex items-center">
+                        <svg class="w-5 h-5 ml-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                        שולח...
+                    </span>
+                `;
+                submitButton.disabled = true;
+            });
+
+            // Initial validation
+            validateForm();
         });
     </script>
 </body>
