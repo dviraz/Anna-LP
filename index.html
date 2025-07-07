@@ -55,7 +55,7 @@
         }
     </style>
 </head>
-<<body class="gradient-bg">
+<body class="gradient-bg">
 
     <div class="min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <!-- Header with Logos -->
@@ -163,5 +163,16 @@
 
     </div>
 
+    <script>
+        // Capture source ID from URL parameters
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sid = urlParams.get('sid');
+            const sourceInput = document.querySelector('input[name="source_id"]');
+            if (sourceInput) {
+                sourceInput.value = sid || 'Direct';
+            }
+        });
+    </script>
 </body>
 </html>
