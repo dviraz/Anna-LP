@@ -14,59 +14,105 @@
     <style>
         body {
             font-family: 'Assistant', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+        
         .form-input-focus:focus {
             outline: 2px solid transparent;
             outline-offset: 2px;
-            --tw-ring-color: #4f46e5;
+            --tw-ring-color: #667eea;
             --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
             --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
             box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
         }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .logo-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
     </style>
 </head>
-<body class="bg-gray-50">
+<<body class="gradient-bg">
 
     <div class="min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div id="form-container" class="w-full max-w-lg space-y-8 p-8 md:p-10 bg-white rounded-xl shadow-lg">
-            <div>
-                <h1 class="text-center text-3xl md:text-4xl font-bold text-gray-900">
+        <!-- Header with Logos -->
+        <div class="w-full max-w-4xl mb-8">
+            <div class="logo-container rounded-2xl p-6 mb-8">
+                <div class="flex justify-center items-center gap-8 flex-wrap">
+                    <img src="meir.png" alt="לוגו קבוצת מאיר" class="h-12 w-auto filter brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
+                    <img src="autocenter.png" alt="לוגו אוטוסנטר" class="h-16 w-auto filter brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
+                    <img src="klslogo_white_text.png" alt="לוגו KLS" class="h-14 w-auto opacity-90 hover:opacity-100 transition-opacity">
+                </div>
+            </div>
+        </div>
+
+        <div id="form-container" class="w-full max-w-lg space-y-8 p-8 md:p-12 form-card rounded-2xl card-shadow">
+            <div class="text-center">
+                <div class="inline-block p-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mb-6">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                    </svg>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4">
                     תתחדשו על הרכב החדש!
                 </h1>
-                <p class="mt-2 text-center text-md text-gray-600">
+                <p class="text-lg text-gray-600 leading-relaxed">
                     כדי שנוכל להשלים את תהליך הרישום, אנא מלאו את הפרטים הבאים:
                 </p>
+                <div class="mt-6 flex justify-center">
+                    <div class="h-1 w-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
+                </div>
             </div>
             
-            <form id="lead-form" class="mt-8 space-y-6" action="#" method="POST" novalidate>
-                <input type="hidden" id="source_id" name="source_id" value="">
+            <form class="mt-8 space-y-6" action="https://formspree.io/f/mzzgqnzn" method="POST">
+                <input type="hidden" name="_next" value="https://dviraz.github.io/Anna-LP/thank-you.html">
+                <input type="hidden" name="source_id" value="">
 
-                <div class="rounded-md shadow-sm -space-y-px">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">שם פרטי</label>
-                            <input id="first-name" name="first-name" type="text" required class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm form-input-focus" placeholder="לדוגמה: ישראל">
-                            <p id="first-name-error" class="text-red-500 text-xs mt-1 min-h-0"></p>
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="group">
+                            <label for="first-name" class="block text-sm font-semibold text-gray-700 mb-2">שם פרטי</label>
+                            <input id="first-name" name="first-name" type="text" required class="appearance-none rounded-xl relative block w-full px-4 py-3 border-2 border-gray-200 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 form-input-focus" placeholder="לדוגמה: ישראל">
                         </div>
-                        <div>
-                            <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">שם משפחה</label>
-                            <input id="last-name" name="last-name" type="text" required class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm form-input-focus" placeholder="לדוגמה: ישראלי">
-                             <p id="last-name-error" class="text-red-500 text-xs mt-1 min-h-0"></p>
+                        <div class="group">
+                            <label for="last-name" class="block text-sm font-semibold text-gray-700 mb-2">שם משפחה</label>
+                            <input id="last-name" name="last-name" type="text" required class="appearance-none rounded-xl relative block w-full px-4 py-3 border-2 border-gray-200 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 form-input-focus" placeholder="לדוגמה: ישראלי">
                         </div>
                     </div>
-                     <div>
-                        <label for="email-address" class="block text-sm font-medium text-gray-700 mb-1">כתובת אימייל</label>
-                        <input id="email-address" name="email" type="email" autocomplete="email" required class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm form-input-focus" placeholder="mail@example.com">
-                        <p id="email-error" class="text-red-500 text-xs mt-1 min-h-0"></p>
+                     <div class="group">
+                        <label for="email-address" class="block text-sm font-semibold text-gray-700 mb-2">כתובת אימייל</label>
+                        <input id="email-address" name="email" type="email" autocomplete="email" required class="appearance-none rounded-xl relative block w-full px-4 py-3 border-2 border-gray-200 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 form-input-focus" placeholder="mail@example.com">
                     </div>
-                     <div class="pt-4">
-                        <label for="phone-number" class="block text-sm font-medium text-gray-700 mb-1">מספר טלפון</label>
-                        <input id="phone-number" name="phone" type="tel" autocomplete="tel" required class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm form-input-focus" placeholder="05X-XXXXXXX">
-                        <p id="phone-error" class="text-red-500 text-xs mt-1 min-h-0"></p>
+                     <div class="group">
+                        <label for="phone-number" class="block text-sm font-semibold text-gray-700 mb-2">מספר טלפון</label>
+                        <input id="phone-number" name="phone" type="tel" autocomplete="tel" required class="appearance-none rounded-xl relative block w-full px-4 py-3 border-2 border-gray-200 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 form-input-focus" placeholder="05X-XXXXXXX">
                     </div>
-                     <div class="pt-4">
-                        <label for="branch-selection" class="block text-sm font-medium text-gray-700 mb-1">בחירת סניף</label>
-                        <select id="branch-selection" name="branch" required class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm form-input-focus">
+                     <div class="group">
+                        <label for="branch-selection" class="block text-sm font-semibold text-gray-700 mb-2">הסניף שבו הרכב נרכש</label>
+                        <select id="branch-selection" name="branch" required class="appearance-none rounded-xl relative block w-full px-4 py-3 border-2 border-gray-200 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 form-input-focus cursor-pointer">
                             <option value="" disabled selected>יש לבחור סניף מהרשימה</option>
                             <option value="באר שבע">באר שבע</option>
                             <option value="אשדוד">אשדוד</option>
@@ -82,156 +128,40 @@
                             <option value="ראש העין">ראש העין</option>
                             <option value="רעננה">רעננה</option>
                         </select>
-                        <p id="branch-error" class="text-red-500 text-xs mt-1 min-h-0"></p>
                     </div>
                 </div>
 
-                <div class="pt-6">
-                    <button id="submit-button" type="submit" class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-opacity duration-300 opacity-50 cursor-not-allowed">
-                        שלח פרטים
+                <div class="pt-8">
+                    <button type="submit" class="group relative w-full flex justify-center py-4 px-6 border border-transparent text-lg font-bold rounded-xl text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <span class="flex items-center">
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                            </svg>
+                            שלח פרטים
+                        </span>
                     </button>
                 </div>
             </form>
         </div>
 
         <div id="success-message" class="w-full max-w-lg text-center hidden">
-             <div class="p-10 bg-white rounded-xl shadow-lg">
-                <svg class="mx-auto h-12 w-12 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <h2 class="mt-4 text-2xl font-bold text-gray-900">תודה שבחרתם בקבוצת מאיר</h2>
-                 <div class="mt-8 flex justify-center items-center gap-6">
-                    <img src="meir.png" alt="לוגו קבוצת מאיר" class="h-10 w-auto">
-                    <img src="autocenter.png" alt="לוגו אוטוסנטר" class="h-16 w-auto">
-                    <img src="klslogo_white_text.png" alt="לוגו KLS" class="h-12 w-auto">
+             <div class="p-12 form-card rounded-2xl card-shadow">
+                <div class="inline-block p-6 bg-gradient-to-r from-green-400 to-green-600 rounded-full mb-6">
+                    <svg class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4">תודה שבחרתם בקבוצת מאיר</h2>
+                <p class="text-gray-600 mb-8">נחזור אליכם בהקדם עם כל הפרטים על הרכב החדש</p>
+                 <div class="flex justify-center items-center gap-8 flex-wrap">
+                    <img src="meir.png" alt="לוגו קבוצת מאיר" class="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity">
+                    <img src="autocenter.png" alt="לוגו אוטוסנטר" class="h-14 w-auto opacity-70 hover:opacity-100 transition-opacity">
+                    <img src="klslogo_white_text.png" alt="לוגו KLS" class="h-12 w-auto opacity-70 hover:opacity-100 transition-opacity">
                 </div>
              </div>
         </div>
 
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('lead-form');
-            const firstNameInput = document.getElementById('first-name');
-            const lastNameInput = document.getElementById('last-name');
-            const emailInput = document.getElementById('email-address');
-            const phoneInput = document.getElementById('phone-number');
-            const branchInput = document.getElementById('branch-selection');
-            const submitButton = document.getElementById('submit-button');
-            const hiddenSourceIdInput = document.getElementById('source_id');
-
-            const errorMessages = {
-                firstName: document.getElementById('first-name-error'),
-                lastName: document.getElementById('last-name-error'),
-                email: document.getElementById('email-error'),
-                phone: document.getElementById('phone-error'),
-                branch: document.getElementById('branch-error'),
-            };
-
-            const validators = {
-                firstName: (value) => value.trim() !== '',
-                lastName: (value) => value.trim() !== '',
-                email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-                phone: (value) => /^0\d{1,2}-?\d{7}$/.test(value),
-                branch: (value) => value !== '',
-            };
-
-            const errorTexts = {
-                firstName: 'יש להזין שם פרטי.',
-                lastName: 'יש להזין שם משפחה.',
-                email: 'כתובת האימייל אינה תקינה.',
-                phone: 'מספר הטלפון אינו תקין (לדוגמה: 052-1234567).',
-                branch: 'יש לבחור סניף מהרשימה.',
-            };
-
-            function setSourceId() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const sid = urlParams.get('sid');
-                hiddenSourceIdInput.value = sid || 'Direct';
-            }
-
-            function validateField(input, validator, errorMsgElement, errorText) {
-                const isValid = validator(input.value);
-                
-                // Only show error messages if the field has been touched (user has interacted with it)
-                if (input.dataset.touched === 'true') {
-                    errorMsgElement.textContent = isValid ? '' : errorText;
-                    if (isValid) {
-                        input.classList.remove('border-red-500');
-                        input.classList.add('border-gray-300');
-                    } else {
-                        input.classList.add('border-red-500');
-                        input.classList.remove('border-gray-300');
-                    }
-                } else {
-                    // Field hasn't been touched yet, don't show errors
-                    errorMsgElement.textContent = '';
-                    input.classList.remove('border-red-500');
-                    input.classList.add('border-gray-300');
-                }
-                
-                return isValid;
-            }
-
-            function validateForm() {
-                const isFirstNameValid = validateField(firstNameInput, validators.firstName, errorMessages.firstName, errorTexts.firstName);
-                const isLastNameValid = validateField(lastNameInput, validators.lastName, errorMessages.lastName, errorTexts.lastName);
-                const isEmailValid = validateField(emailInput, validators.email, errorMessages.email, errorTexts.email);
-                const isPhoneValid = validateField(phoneInput, validators.phone, errorMessages.phone, errorTexts.phone);
-                const isBranchValid = validateField(branchInput, validators.branch, errorMessages.branch, errorTexts.branch);
-
-                const isFormValid = isFirstNameValid && isLastNameValid && isEmailValid && isPhoneValid && isBranchValid;
-
-                if (isFormValid) {
-                    submitButton.disabled = false;
-                    submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
-                } else {
-                    submitButton.disabled = true;
-                    submitButton.classList.add('opacity-50', 'cursor-not-allowed');
-                }
-                return isFormValid;
-            }
-            
-            [firstNameInput, lastNameInput, emailInput, phoneInput, branchInput].forEach(input => {
-                input.addEventListener('input', validateForm);
-                
-                // Mark field as touched when user starts typing or selects
-                input.addEventListener('blur', () => {
-                    input.dataset.touched = 'true';
-                    validateForm();
-                });
-                
-                input.addEventListener('input', () => {
-                    input.dataset.touched = 'true';
-                });
-            });
-
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
-                
-                // Mark all fields as touched when form is submitted
-                [firstNameInput, lastNameInput, emailInput, phoneInput, branchInput].forEach(input => {
-                    input.dataset.touched = 'true';
-                });
-                
-                const isFormValid = validateForm();
-                
-                if (isFormValid) {
-                    submitButton.textContent = 'שולח...';
-                    submitButton.disabled = true;
-
-                    // ...existing code...
-                    setTimeout(() => {
-                        document.getElementById('form-container').classList.add('hidden');
-                        document.getElementById('success-message').classList.remove('hidden');
-                    }, 1000);
-                }
-            });
-
-            setSourceId();
-            validateForm(); 
-        });
-    </script>
 </body>
 </html>
